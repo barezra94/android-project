@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PetHotel</string>
+    <string name="loginBtnStr">Sign In</string>
+    <string name="registerBtnStr">Register</string>
+    <string name="headerStr">Welcome to the Pet Hotel!</string>
+    <string name="signOutBtnStr">Sign Out</string>
+</resources>

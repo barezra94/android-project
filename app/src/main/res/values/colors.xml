@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ffea85</color>
+    <color name="colorPrimaryDark">#CAB856</color>
+    <color name="colorPrimaryLight">#ffffb6</color>
+    <color name="colorAccent">#F73F52</color>
+    <color name="colorAccentDark">#BD002A</color>
+    <color name="colorAccentLight">#ff767e</color>
+
+    <color name="alphaColorPrimary">#66ffea85</color>
+    <color name="alphaColorPrimaryDark">#66cab856</color>
+    <color name="alphaColorPrimaryLight">#66ffffb6</color>
+    <color name="alphaColorAccent">#66f73f52</color>
+    <color name="alphaColorAccentDark">#66bd002a</color>
+    <color name="alphaColorAccentLight">#66ff767e</color>
+
+    <!--<color name="colorPrimary">#fb8c00</color>
+    <color name="colorPrimaryDark">#c25e00</color>
+    <color name="colorPrimaryLight">#ffbd45</color>
+    <color name="colorAccent">#c2185b</color>
+    <color name="colorAccentDark">#8c0032</color>
+    <color name="colorAccentLight">#fa5788</color>-->
+
+</resources>
