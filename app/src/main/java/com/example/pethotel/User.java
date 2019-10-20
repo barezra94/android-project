@@ -7,14 +7,18 @@ public class User implements IUser {
 
     private String username;
     private String email;
+    private UserType type;
+
+
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String username, String email) {
+    public User(String username, String email, UserType type ) {
         this.username = username;
         this.email = email;
+        this.type = type;
     }
 
 
@@ -27,4 +31,22 @@ public class User implements IUser {
     public String getUsername(String username) {
         return this.username;
     }
+
+    @Override
+    public void setUserType(UserType type) { this.type = type; }
+
+    @Override
+    public UserType getUserType(UserType type) {
+        return this.type;
+    }
+
+    @Override
+    public void setEmail(String email) { this.email = email; }
+
+    @Override
+    public String getEmail(String email) {
+        return this.email;
+    }
+
+
 }
