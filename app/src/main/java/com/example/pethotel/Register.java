@@ -1,12 +1,13 @@
 package com.example.pethotel;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -19,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Register extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private DatabaseReference database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,19 +28,20 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance().getReference();
     }
 
 
 
     public void onRegisterClicked(View view){
 
-        EditText userName = (EditText)findViewById(R.id.name);
-        EditText emailTxt = (EditText)findViewById(R.id.email);
+        final EditText userName = (EditText)findViewById(R.id.name);
+        final EditText emailTxt = (EditText)findViewById(R.id.email);
         EditText passwordTxt = (EditText)findViewById(R.id.password);
         EditText passwordConTxt = (EditText) findViewById(R.id.confirmationPassword);
 
         if (!passwordConTxt.getText().toString().equals(passwordTxt.getText().toString())){
-            // TODO: Show error message that passwords don't match
+            Toast.makeText(getApplicationContext(), "Passwords do not match", Toast.LENGTH_LONG).show();
         }
         else{
             mAuth.createUserWithEmailAndPassword(emailTxt.getText().toString(), passwordTxt.getText().toString())
@@ -46,14 +49,14 @@ public class Register extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                DatabaseReference myRef = database.getReference("message");
 
-                                myRef.setValue("Hello, World!");
-
+                                // TODO: Separate user insert to a different method with try catch
+                                User user = new User(userName.getText().toString(), emailTxt.getText().toString(), UserType.PetOwner);
+                                FirebaseUser u1 = mAuth.getCurrentUser();
+                                database.child("users").child(u1.getUid()).setValue(user);
                                 updateUI();
                             } else {
-                                // TODO: If sign in fails, display a message to the user.
+                                Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
                             }
                         }
                     });

@@ -4,4 +4,10 @@
     <string name="registerBtnStr">Register</string>
     <string name="headerStr">Welcome to the Pet Hotel!</string>
     <string name="signOutBtnStr">Sign Out</string>
+    <string name="numUsersLbl">Registered Users</string>
+    <string name="numPetsLbl">Pets In Hotel</string>
+    <string name="upcomingLBL">Recent Reservations</string>
+    <string name="leavingLbl">Upcoming Sign Outs</string>
+    <string name="showReservationsBtn">Show all Reservations</string>
+    <string name="myPetsBtn">Show My Pets</string>
 </resources>

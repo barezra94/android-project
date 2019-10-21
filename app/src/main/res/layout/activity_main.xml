@@ -22,24 +22,6 @@
             android:cropToPadding="false"
             app:srcCompat="@drawable/logo_transparent" />
 
-        <!--<EditText
-            android:id="@+id/email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:ems="10"
-            android:hint="Email"
-            android:inputType="textEmailAddress"/>
-
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:ems="10"
-            android:hint="Password"
-            android:inputType="textPassword"/>-->
-
         <Button
             android:id="@+id/loginBtn"
             style="@style/Widget.AppCompat.Button.Colored"

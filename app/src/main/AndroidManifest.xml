@@ -9,7 +9,9 @@
         android:roundIcon="@drawable/logo_transparent"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Homepage"></activity>
+        <activity android:name=".Pets"></activity>
+        <activity android:name=".Reservations" />
+        <activity android:name=".Homepage" />
         <activity android:name=".Register" />
         <activity android:name=".SignIn" />
         <activity android:name=".MainActivity">
