@@ -10,4 +10,7 @@
     <string name="leavingLbl">Upcoming Sign Outs</string>
     <string name="showReservationsBtn">Show all Reservations</string>
     <string name="myPetsBtn">Show My Pets</string>
+    <string name="catTxt">Cat</string>
+    <string name="dogTxt">Dog</string>
+    <string name="saveTxt">Save</string>
 </resources>

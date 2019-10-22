@@ -7,4 +7,9 @@ public class Animal {
     public Animal() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
+
+    public Animal(String name, PetType type){
+        this.animalName = name;
+        this.type = type;
+    }
 }

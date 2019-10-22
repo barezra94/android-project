@@ -6,7 +6,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -14,8 +13,6 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.HashMap;
 
 public class Reservations extends AppCompatActivity {
 
@@ -73,7 +70,7 @@ public class Reservations extends AppCompatActivity {
 
     }
 
-    public void CreateNewReservation(View view){
+    /*public void CreateNewReservation(View view){
 
         HashMap<String, Object> reservation = new HashMap<>();
         reservation.put("fromDate", );
@@ -83,5 +80,5 @@ public class Reservations extends AppCompatActivity {
         mDatabase.child("reservation").child(mAuth.getUid()).setValue(reservation);
 
         Toast.makeText(this, "Reservation Added Successfully", Toast.LENGTH_SHORT).show();
-    }
+    }*/
 }
