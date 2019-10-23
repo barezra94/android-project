@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -95,7 +96,7 @@ public class Pets extends AppCompatActivity {
         layout.removeAllViews();
 
         for(Map.Entry<String, Object> entry : pets.entrySet()) {
-            String key = entry.getKey();
+            final String key = entry.getKey();
             Object value = entry.getValue();
 
             CardView card = new CardView(getApplicationContext());
@@ -117,9 +118,19 @@ public class Pets extends AppCompatActivity {
 
             textView.setText(text);
 
-            // TODO: add delete button
+            Button deleteBtn = new Button(getApplicationContext());
+            LinearLayout.LayoutParams btnParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            deleteBtn.setLayoutParams(btnParams);
+            deleteBtn.setText("Delete"); //TODO: Change to icon button
+            deleteBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mDatabase.child("pets").child(mAuth.getUid()).child(key).removeValue();
+                }
+            });
 
             card.addView(textView);
+            card.addView(deleteBtn);
 
             layout.addView(card);
         }
@@ -168,5 +179,7 @@ public class Pets extends AppCompatActivity {
 
     }
 
-    // TODO: Add remove
+    public void DeletePet(View view){
+
+    }
 }
