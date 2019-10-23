@@ -178,8 +178,4 @@ public class Pets extends AppCompatActivity {
         }
 
     }
-
-    public void DeletePet(View view){
-
-    }
 }
