@@ -1,5 +1,7 @@
 package com.example.pethotel;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,7 +9,10 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -19,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -48,6 +54,10 @@ public class Pets extends AppCompatActivity {
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
+        TextView helloTxt = (TextView) findViewById(R.id.helloTxt);
+        String hello = "Hello " + getIntent().getStringExtra("username");
+        helloTxt.setText(hello);
     }
 
     @Override
@@ -81,7 +91,9 @@ public class Pets extends AppCompatActivity {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 HashMap<String, Object> pets = (HashMap<String, Object>)dataSnapshot.getValue();
-                UpdateUI(pets);
+                if (pets != null){
+                    UpdateUI(pets);
+                }
             }
             @Override
             public void onCancelled(DatabaseError error) {
@@ -128,7 +140,7 @@ public class Pets extends AppCompatActivity {
                     mDatabase.child("pets").child(mAuth.getUid()).child(key).removeValue();
                 }
             });
-
+            // Add picture of cat or dog
             card.addView(textView);
             card.addView(deleteBtn);
 
@@ -145,11 +157,14 @@ public class Pets extends AppCompatActivity {
             case R.id.dogRadio:
                 if (checked) {
                     petToAdd = PetType.Dog;
+                    ((RadioButton)findViewById(R.id.catRadio)).setChecked(false);
                 }
                     break;
             case R.id.catRadio:
-                if (checked)
+                if (checked) {
                     petToAdd = PetType.Cat;
+                    ((RadioButton)findViewById(R.id.dogRadio)).setChecked(false);
+                }
                     break;
         }
     }
@@ -157,24 +172,85 @@ public class Pets extends AppCompatActivity {
     public void CreateNewPet(View view){
 
         EditText petName = (EditText)findViewById(R.id.petNameTxt);
+        
+        if(!petName.getText().toString().isEmpty()) {
+            mDatabase.child("pets").child(mAuth.getUid()).push().setValue(new Animal(petName.getText().toString(), petToAdd));
 
-        mDatabase.child("pets").child(mAuth.getUid()).push().setValue(new Animal(petName.getText().toString(), petToAdd));
+            petName.setText(null);
 
-        petName.setText(null);
+            Toast.makeText(this, "Pet Added Successfully", Toast.LENGTH_SHORT).show();
 
-        Toast.makeText(this, "Pet Added Successfully", Toast.LENGTH_SHORT).show();
+            int cx = findViewById(R.id.addNewCard).getWidth() / 2;
+            int cy = findViewById(R.id.addNewCard).getHeight() / 2;
 
-        // TODO: Add animation
-        findViewById(R.id.addNewCard).setVisibility(View.GONE);
+            // get the initial radius for the clipping circle
+            float initialRadius = (float) Math.hypot(cx, cy);
+
+            // create the animation (the final radius is zero)
+            Animator anim = ViewAnimationUtils.createCircularReveal(findViewById(R.id.addNewCard), cx, cy, initialRadius, 0f);
+
+            // make the view invisible when the animation is done
+            anim.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    findViewById(R.id.addNewReservationCard).setVisibility(View.GONE);
+                }
+            });
+
+            // start the animation
+            anim.start();
+        } else {
+            Toast.makeText(this, "Pet must have a name", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void showAddNewPet(View view){
-        // TODO: Add Animation
+
+        FloatingActionButton button = (FloatingActionButton)findViewById(R.id.addPet);
+        final Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
+
+        // Use bounce interpolator with amplitude 0.2 and frequency 20
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.2, 20);
+        myAnim.setInterpolator(interpolator);
+
+        button.startAnimation(myAnim);
 
         if(findViewById(R.id.addNewCard).getVisibility() == View.GONE){
+            // get the center for the clipping circle
+            int cx = findViewById(R.id.addNewCard).getWidth() / 2;
+            int cy = findViewById(R.id.addNewCard).getHeight() / 2;
+
+            // get the final radius for the clipping circle
+            float finalRadius = (float) Math.hypot(cx, cy);
+
+            // create the animator for this view (the start radius is zero)
+            Animator anim = ViewAnimationUtils.createCircularReveal(findViewById(R.id.addNewCard), cx, cy, 0f, finalRadius);
+
+            // make the view visible and start the animation
             findViewById(R.id.addNewCard).setVisibility(View.VISIBLE);
+            anim.start();
         } else {
-            findViewById(R.id.addNewCard).setVisibility(View.GONE);
+            int cx = findViewById(R.id.addNewCard).getWidth() / 2;
+            int cy = findViewById(R.id.addNewCard).getHeight() / 2;
+
+            // get the initial radius for the clipping circle
+            float initialRadius = (float) Math.hypot(cx, cy);
+
+            // create the animation (the final radius is zero)
+            Animator anim = ViewAnimationUtils.createCircularReveal(findViewById(R.id.addNewCard), cx, cy, initialRadius, 0f);
+
+            // make the view invisible when the animation is done
+            anim.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    findViewById(R.id.addNewCard).setVisibility(View.GONE);
+                }
+            });
+
+            // start the animation
+            anim.start();
         }
 
     }

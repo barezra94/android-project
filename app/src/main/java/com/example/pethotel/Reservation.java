@@ -1,9 +1,17 @@
 package com.example.pethotel;
 
-import java.util.Date;
-
 public class Reservation {
-    public Date fromDate;
-    public Date toDate;
+    public String fromDate;
+    public String toDate;
     public String petStaying;
+
+    public Reservation(){
+
+    }
+
+    public Reservation(String fromDate, String toDate, String petName){
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+        this.petStaying = petName;
+    }
 }

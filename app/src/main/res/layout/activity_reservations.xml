@@ -48,38 +48,45 @@
                 android:padding="10dp">
 
                 <EditText
-                    android:id="@+id/petNameTxt"
+                    android:id="@+id/fromDateTxt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Pet Name"
-                    android:inputType="textPersonName" />
+                    android:inputType="date"
+                    android:hint="Check In Date"
+                    android:focusable="false"/>
 
-                <RadioGroup
+                <EditText
+                    android:id="@+id/toDateTxt"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="date"
+                    android:hint="Check Out Date"
+                    android:focusable="false"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-                        <RadioButton
-                            android:id="@+id/dogRadio"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/dogTxt"
-                            android:onClick="onRadioButtonClicked"/>
+                <TextView
+                    android:id="@+id/petNameTxt"
+                    style="@style/Widget.AppCompat.TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:padding="10dp"
+                    android:text="Pet to Check In"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-                        <RadioButton
-                            android:id="@+id/catRadio"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/catTxt"
-                            android:onClick="onRadioButtonClicked"/>
-                    </LinearLayout>
+                <Spinner
+                    android:id="@+id/petSpinner"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
-                </RadioGroup>
+            </LinearLayout>
 
                 <Button
                     android:id="@+id/savePetBtn"
@@ -101,11 +108,12 @@
                 android:id="@+id/reservationsViewLL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" />
+                android:orientation="vertical"
+                android:animateLayoutChanges="true"/>
         </ScrollView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/addPet"
+            android:id="@+id/addReservation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
